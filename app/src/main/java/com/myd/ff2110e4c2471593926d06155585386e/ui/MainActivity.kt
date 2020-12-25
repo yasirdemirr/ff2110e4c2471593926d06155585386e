@@ -1,7 +1,8 @@
-package com.myd.ff2110e4c2471593926d06155585386e
+package com.myd.ff2110e4c2471593926d06155585386e.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.myd.ff2110e4c2471593926d06155585386e.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
