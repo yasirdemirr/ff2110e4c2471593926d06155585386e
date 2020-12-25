@@ -60,7 +60,6 @@ dependencies {
     // retrofit
     implementation "com.squareup.retrofit2:retrofit:${retrofitVersion}"
     implementation "com.squareup.retrofit2:converter-gson:${retrofitVersion}"
-    implementation "com.squareup.retrofit2:adapter-rxjava2:${retrofitVersion}"
 
     //okhttp
     implementation "com.squareup.okhttp3:logging-interceptor:${okHttpVersion}"
@@ -73,6 +72,7 @@ dependencies {
 
     //rxjava, android
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:${coroutineVersion}"
+    implementation 'com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2'
 
 
     //pagination
@@ -84,6 +84,11 @@ dependencies {
 
     //glide
     implementation "com.github.bumptech.glide:glide:${glideVersion}"
+
+    //room
+    implementation "androidx.room:room-runtime:$roomVersion"
+    annotationProcessor "androidx.room:room-compiler:$roomVersion"
+    androidTestImplementation "androidx.room:room-testing:$roomVersion"
 
     // Test
 
