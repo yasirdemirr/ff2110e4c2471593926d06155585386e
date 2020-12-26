@@ -2,8 +2,8 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/app_navigation.xml"
-    app:startDestination="@id/homePageFragment">
+    android:id="@+id/appNavigation"
+    app:startDestination="@id/vehicleBuilderFragment">
 
 
     <fragment
@@ -31,6 +31,8 @@
         tools:layout="@layout/vehicle_builder_fragment">
         <action
             android:id="@+id/action_vehicleBuilderFragment_to_homePageFragment"
-            app:destination="@id/homePageFragment" />
+            app:destination="@id/homePageFragment"
+            app:popUpTo="@+id/vehicleBuilderFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>

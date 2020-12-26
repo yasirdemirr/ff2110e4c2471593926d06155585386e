@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -8,17 +10,58 @@
             type="com.myd.ff2110e4c2471593926d06155585386e.ui.home.HomePageViewModel" />
     </data>
 
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.home.HomePageFragment">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Hello" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/totallyPointText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:text="@string/totally_point_text"
+            android:textSize="28sp"
+            app:layout_constraintEnd_toStartOf="@+id/totallyPointNumber"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    </FrameLayout>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/totallyPointNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="48dp"
+            android:text="@string/totaly_point_number"
+            android:textSize="28sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/totallyPointText" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/vehicleNameInput"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginRight="32dp"
+            android:hint="@string/enter_vehicle_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/totallyPointText" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/durabilityTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="@string/durability_title"
+            app:layout_constraintLeft_toLeftOf="@id/vehicleNameInput"
+            app:layout_constraintTop_toBottomOf="@id/vehicleNameInput" />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
