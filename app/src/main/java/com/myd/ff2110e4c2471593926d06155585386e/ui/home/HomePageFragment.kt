@@ -40,6 +40,11 @@ class HomePageFragment : Fragment() {
         viewModel = ViewModelProvider(this, viewModelProvider).get(HomePageViewModel::class.java)
         binding.viewModel = viewModel
 
+    }
+
+    override fun onResume() {
+        super.onResume()
         arguments?.getParcelable<VehiclePreferences>(VEHICLE)?.let { viewModel.parseIntent(it) }
+
     }
 }

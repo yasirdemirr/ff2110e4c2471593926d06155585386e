@@ -3,16 +3,16 @@
     <item
         android:id="@+id/home"
         android:icon="@drawable/spacecraft_svgrepo_com"
-        android:orderInCategory="1"
-        android:title="Home"
+        android:contentDescription="Home"
+        android:title="Istasyon"
         app:showAsAction="always" />
 
 
     <item
         android:id="@+id/favorite"
         android:icon="@drawable/favorite_svgrepo_com"
-        android:orderInCategory="2"
-        android:title="More"
+        android:contentDescription="Favorite"
+        android:title="Favoriler"
         app:showAsAction="always" />
 
 </menu>

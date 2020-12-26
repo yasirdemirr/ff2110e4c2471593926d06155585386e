@@ -57,7 +57,7 @@ class VehicleBuilderFragment : Fragment(), SeekBar.OnSeekBarChangeListener, Text
             if (viewModel.checkButtonEnableValue()) {
                 val bundle = bundleOf(VEHICLE to viewModel.vehicle)
                 findNavController().navigate(
-                    R.id.action_vehicleBuilderFragment_to_homePageFragment,
+                    R.id.action_vehicleBuilderFragment_to_homeFragment,
                     bundle
                 )
             } else {

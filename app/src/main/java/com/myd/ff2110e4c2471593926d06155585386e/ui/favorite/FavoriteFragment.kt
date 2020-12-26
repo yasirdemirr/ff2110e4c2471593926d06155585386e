@@ -8,11 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.myd.ff2110e4c2471593926d06155585386e.R
 
-class FavoriteFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = FavoriteFragment()
-    }
+class  FavoriteFragment : Fragment() {
 
     private lateinit var viewModel: FavoriteViewModel
 
