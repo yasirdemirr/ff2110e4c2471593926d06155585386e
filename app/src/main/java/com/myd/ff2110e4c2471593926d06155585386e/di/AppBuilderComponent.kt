@@ -1,9 +1,9 @@
 package com.myd.ff2110e4c2471593926d06155585386e.di
 
 import android.content.Context
-import com.myd.codechallange.di.ViewModelModule
 import com.myd.ff2110e4c2471593926d06155585386e.App
 import com.myd.ff2110e4c2471593926d06155585386e.database.RoomDbModule
+import com.myd.ff2110e4c2471593926d06155585386e.di.viewmodelmodule.ViewModelModule
 import com.myd.ff2110e4c2471593926d06155585386e.network.NetworkModule
 import dagger.BindsInstance
 import dagger.Component

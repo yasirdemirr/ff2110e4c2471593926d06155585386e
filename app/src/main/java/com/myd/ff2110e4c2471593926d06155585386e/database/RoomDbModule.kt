@@ -2,6 +2,7 @@ package com.myd.ff2110e4c2471593926d06155585386e.database
 
 import android.content.Context
 import androidx.room.Room
+import com.myd.ff2110e4c2471593926d06155585386e.constant.Constants.DATABASE_NAME
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -14,7 +15,7 @@ class RoomDbModule {
         .databaseBuilder(
             context.applicationContext,
             SpaceDeliveryDataBase::class.java,
-            "space_delivery_database"
+            DATABASE_NAME
         )
         .fallbackToDestructiveMigration()
         .build()

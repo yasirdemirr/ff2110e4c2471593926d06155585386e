@@ -1,4 +1,4 @@
-package com.myd.codechallange.di
+package com.myd.ff2110e4c2471593926d06155585386e.di.viewmodelmodule
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

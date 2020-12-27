@@ -3,32 +3,47 @@ package com.myd.ff2110e4c2471593926d06155585386e.ui.vehicle
 import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
-import com.myd.ff2110e4c2471593926d06155585386e.data.model.StationItem
+import androidx.lifecycle.viewModelScope
+import com.myd.ff2110e4c2471593926d06155585386e.data.model.Station
 import com.myd.ff2110e4c2471593926d06155585386e.data.model.VehiclePreferences
-import com.myd.ff2110e4c2471593926d06155585386e.data.repository.remote.StationDataRepository
+import com.myd.ff2110e4c2471593926d06155585386e.data.repository.StationDataRepository
 import com.myd.ff2110e4c2471593926d06155585386e.resources.NetworkState
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.math.absoluteValue
 
 class VehicleBuilderViewModel @Inject constructor(
     private val stationDataRepository: StationDataRepository
 ) : ViewModel() {
-
     var vehicle = VehiclePreferences()
     val pointObservable = ObservableField<String>("15")
+
+    init {
+        clearTable()
+    }
+
+    private fun clearTable() {
+        viewModelScope.launch {
+            stationDataRepository.clear()
+        }
+    }
 
     fun getStations() = liveData(Dispatchers.IO) {
         emit(NetworkState.Loading)
         try {
-            emit(NetworkState.Success(stationDataRepository.getStations()))
+            emit(NetworkState.Success(stationDataRepository.getStationsFromRemote()))
         } catch (e: Exception) {
             emit(NetworkState.Error(e))
         }
     }
 
-    fun saveStationsToRoom(stations: List<StationItem>) {
-
+    fun saveStationsToRoom(stations: List<Station>) {
+        viewModelScope.launch {
+            stations.forEach {
+                stationDataRepository.saveStationToLocal(it)
+            }
+        }
     }
 
     fun checkVehicleDurability(durability: Int): Int {
