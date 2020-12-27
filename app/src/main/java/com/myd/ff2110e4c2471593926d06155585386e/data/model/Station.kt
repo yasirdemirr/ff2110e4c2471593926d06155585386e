@@ -11,22 +11,26 @@ data class Station(
     var id: Int? = null,
 
     @SerializedName("capacity")
-    var capacity: Int? = null,
+    var capacity: Int = 0,
 
     @SerializedName("coordinateX")
-    var coordinateX: Int? = null,
+    var coordinateX: Double = 0.0,
 
     @SerializedName("coordinateY")
-    var coordinateY: Int? = null,
+    var coordinateY: Double = 0.0,
 
     @SerializedName("name")
     var name: String? = null,
 
     @SerializedName("need")
-    var need: Int? = null,
+    var need: Int = 0,
 
     @SerializedName("stock")
-    var stock: Int? = null,
+    var stock: Int = 0,
 
-    var isFavorite: Boolean? = false
+    var isFavorite: Boolean = false,
+
+    var distanceTimeCurrentLocation: Int = 0,
+
+    var isCurrentLocation: Boolean = false
 )

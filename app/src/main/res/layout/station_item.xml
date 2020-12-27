@@ -3,11 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="data"
+            type="com.myd.ff2110e4c2471593926d06155585386e.data.model.Station" />
+    </data>
+
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardElevation="8dp"
-        app:cardCornerRadius="16dp">
+        android:layout_margin="16dp"
+        app:cardBackgroundColor="@color/item_background"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="8dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -21,7 +30,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="16dp"
+                android:textColor="@color/gray"
                 android:textSize="16sp"
+                app:checkCapacityVisible="@{data.capacity}"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="2000/1000" />
@@ -31,7 +42,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
+                android:textColor="@color/gray"
                 android:textSize="16sp"
+                app:distanceText="@{data.distanceTimeCurrentLocation}"
                 app:layout_constraintStart_toStartOf="@+id/capacity"
                 app:layout_constraintTop_toBottomOf="@+id/capacity"
                 tools:text="242EUS" />
@@ -41,10 +54,10 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_marginRight="16dp"
+                app:checkFavorite="@{data.isFavorite}"
                 app:layout_constraintBottom_toBottomOf="@id/eusValue"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/capacity"
-                tools:src="@drawable/ic_baseline_star_24" />
+                app:layout_constraintTop_toTopOf="@id/capacity" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/stationName"
@@ -53,7 +66,8 @@
                 android:layout_marginTop="36dp"
                 android:gravity="center"
                 android:padding="8dp"
-                android:textColor="@color/black"
+                android:text="@{data.name}"
+                android:textColor="@color/white"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -62,13 +76,15 @@
                 tools:text="YZCRFJ-246" />
 
             <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnTravel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
+                android:backgroundTint="@color/teal_200"
+                android:text="Travel"
                 app:layout_constraintEnd_toEndOf="@+id/stationName"
                 app:layout_constraintStart_toStartOf="@+id/stationName"
-                app:layout_constraintTop_toBottomOf="@id/stationName"
-                tools:text="Travel" />
+                app:layout_constraintTop_toBottomOf="@id/stationName" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

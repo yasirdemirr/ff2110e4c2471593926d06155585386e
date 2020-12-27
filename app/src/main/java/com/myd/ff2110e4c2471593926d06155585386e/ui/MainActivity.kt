@@ -3,9 +3,7 @@ package com.myd.ff2110e4c2471593926d06155585386e.ui
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
 import androidx.navigation.NavController
-import androidx.navigation.ui.setupActionBarWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.myd.ff2110e4c2471593926d06155585386e.R
 import com.myd.ff2110e4c2471593926d06155585386e.extensions.setupWithNavController
@@ -42,9 +40,6 @@ class MainActivity : AppCompatActivity() {
             containerId = R.id.home_page_fragment,
             intent = intent
         )
-        controller.observe(this, Observer { navC ->
-            setupActionBarWithNavController(navC)
-        })
         currentNavController = controller
 
     }

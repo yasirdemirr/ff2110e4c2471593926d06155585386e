@@ -3,6 +3,7 @@ package com.myd.ff2110e4c2471593926d06155585386e.di.viewmodelmodule
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.myd.ff2110e4c2471593926d06155585386e.di.key.ViewModelKey
+import com.myd.ff2110e4c2471593926d06155585386e.ui.favorite.FavoriteViewModel
 import com.myd.ff2110e4c2471593926d06155585386e.ui.home.HomePageViewModel
 import com.myd.ff2110e4c2471593926d06155585386e.ui.vehicle.VehicleBuilderViewModel
 import dagger.Binds
@@ -20,6 +21,11 @@ interface ViewModelModule {
     @get:Binds
     @get:ViewModelKey(VehicleBuilderViewModel::class)
     val VehicleBuilderViewModel.vehicleBuilderPageViewModel: ViewModel
+
+    @get:IntoMap
+    @get:Binds
+    @get:ViewModelKey(FavoriteViewModel::class)
+    val FavoriteViewModel.favoriteBuilderViewModel: ViewModel
 
 
     @get:Binds

@@ -4,9 +4,14 @@ import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
+import com.myd.ff2110e4c2471593926d06155585386e.constant.Digits.FIFTEEN
+import com.myd.ff2110e4c2471593926d06155585386e.constant.Digits.FIFTEEN_STRING
+import com.myd.ff2110e4c2471593926d06155585386e.constant.Digits.ZERO
+import com.myd.ff2110e4c2471593926d06155585386e.constant.Digits.ZERO_STRING
 import com.myd.ff2110e4c2471593926d06155585386e.data.model.Station
 import com.myd.ff2110e4c2471593926d06155585386e.data.model.VehiclePreferences
 import com.myd.ff2110e4c2471593926d06155585386e.data.repository.StationDataRepository
+import com.myd.ff2110e4c2471593926d06155585386e.extensions.getDistance
 import com.myd.ff2110e4c2471593926d06155585386e.resources.NetworkState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -17,18 +22,26 @@ class VehicleBuilderViewModel @Inject constructor(
     private val stationDataRepository: StationDataRepository
 ) : ViewModel() {
     var vehicle = VehiclePreferences()
-    val pointObservable = ObservableField<String>("15")
+    val pointObservable = ObservableField(FIFTEEN_STRING)
 
     init {
         clearTable()
     }
 
+    /**
+     * Tekrark giriş yapıldıgında
+     * room db'nin temizlenmesi
+     */
     private fun clearTable() {
         viewModelScope.launch {
             stationDataRepository.clear()
         }
     }
 
+    /**
+     * Api üzerinden alkınan istasyonları
+     * çekilmesi
+     */
     fun getStations() = liveData(Dispatchers.IO) {
         emit(NetworkState.Loading)
         try {
@@ -38,70 +51,107 @@ class VehicleBuilderViewModel @Inject constructor(
         }
     }
 
-    fun saveStationsToRoom(stations: List<Station>) {
+    /**
+     * Api üzerinden alkınan istasyonları
+     * local db kayıt edilir
+     *  @param List<Station>
+     */
+    fun saveStationsToRoom(stations: MutableList<Station>) {
         viewModelScope.launch {
+            vehicle.currentLocationName = stations.first().name
             stations.forEach {
+                it.distanceTimeCurrentLocation = vehicle.getDistance(it.coordinateX, it.coordinateY)
                 stationDataRepository.saveStationToLocal(it)
             }
         }
     }
 
-    fun checkVehicleDurability(durability: Int): Int {
-        vehicle.durability =
-            checkTotallyPoint((durability), vehicle.durability)
-        return vehicle.durability
-    }
-
-
-    private fun controlNewValue(durability: Int, point: Int): Int {
+    private fun controlNewValue(selectedPreferences: Int, progress: Int): Int {
         val newValue: Int?
-        val minusvalue = durability.minus(point).absoluteValue
-        if (pointObservable.get()?.toInt()?.minus(minusvalue)!! >= 0) {
-            pointObservable.set(pointObservable.get()?.toInt()?.minus(minusvalue).toString())
-            newValue = point
-        } else {
-            pointObservable.set("0")
-            newValue = if (15 - (vehicle.capacity + vehicle.speed + vehicle.durability) == 0)
-                point else durability + 15 - (vehicle.capacity + vehicle.speed + vehicle.durability)
-        }
+        val lastSelectionMinusOldSelection = selectedPreferences.minus(progress).absoluteValue
+        newValue =
+            if (pointObservable.get()?.toInt()?.minus(lastSelectionMinusOldSelection)!! >= ZERO) {
+                pointObservable.set(
+                    pointObservable.get()?.toInt()?.minus(lastSelectionMinusOldSelection).toString()
+                )
+                progress
+            } else {
+                pointObservable.set(ZERO_STRING)
+                if (FIFTEEN - (vehicle.capacity + vehicle.speed + vehicle.durability) == ZERO)
+                    progress else selectedPreferences + 15 - (vehicle.capacity + vehicle.speed + vehicle.durability)
+            }
         return newValue
     }
 
-    private fun checkTotallyPoint(point: Int, vehicleDurability: Int) =
-        if (point < vehicleDurability) {
+    /**
+     * Seçilen son seçeneğe göre
+     *Seekbarların ayarlanması
+     */
+    private fun checkTotallyPoint(progress: Int, selectedVehiclePreference: Int) =
+        if (progress < selectedVehiclePreference) {
             pointObservable.set(
                 pointObservable.get()?.toInt()
-                    ?.plus(point.minus(vehicleDurability).absoluteValue)
+                    ?.plus(progress.minus(selectedVehiclePreference).absoluteValue)
                     .toString()
             )
-            point
+            progress
 
         } else {
-            if (pointObservable.get() == "0") {
-                vehicleDurability
+            if (pointObservable.get() == ZERO_STRING) {
+                selectedVehiclePreference
 
             } else {
-                controlNewValue(vehicleDurability, point)
+                controlNewValue(selectedVehiclePreference, progress)
             }
         }
 
+    /**
+     * Kullanıcının bütün değerleri
+     * Doğru bir şekilde girdiği kontrolu
+     */
     fun checkButtonEnableValue() =
         vehicle.capacity > 0 &&
                 vehicle.durability > 0 &&
                 vehicle.speed > 0 &&
                 !vehicle.name.isNullOrEmpty() &&
-                pointObservable.get() == "0"
+                pointObservable.get() == ZERO_STRING
 
-    fun checkVehicleSpeed(speed: Int): Int {
-        vehicle.speed = checkTotallyPoint(speed, vehicle.speed)
+    /**
+     * Vehicle Hızının seçilen değerlere
+     * göre setlenmesi
+     * @param progress
+     */
+    fun checkVehicleSpeed(progress: Int): Int {
+        vehicle.speed = checkTotallyPoint(progress, vehicle.speed)
         return vehicle.speed
     }
 
-    fun checkVehicleCapacity(capacity: Int): Int {
-        vehicle.capacity = checkTotallyPoint(capacity, vehicle.capacity)
+    /**
+     * Vehicle Kapasitesinin seçilen değerlere
+     * göre setlenmesi
+     * @param progress
+     */
+    fun checkVehicleCapacity(progress: Int): Int {
+        vehicle.capacity = checkTotallyPoint(progress, vehicle.capacity)
         return vehicle.capacity
     }
 
+    /**
+     * Vehicle Dayanıklılığının seçilen değerlere
+     * göre setlenmesi
+     * @param progress
+     */
+    fun checkVehicleDurability(progress: Int): Int {
+        vehicle.durability =
+            checkTotallyPoint(progress, vehicle.durability)
+        return vehicle.durability
+    }
+
+    /**
+     * Kullanıcının girdiği değerelere
+     * göre araç isminin setlenmesi
+     * @param text
+     */
     fun getVehicleName(text: CharSequence?) {
         vehicle.name = text.toString().trim()
     }

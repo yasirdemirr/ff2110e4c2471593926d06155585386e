@@ -10,4 +10,6 @@ class StationLocale @Inject constructor(private val spaceDeliveryDataBase: Space
     suspend fun insert(station: Station) = spaceDeliveryDataBase.projectDao().insert(station)
 
     suspend fun clear() = spaceDeliveryDataBase.projectDao().clear()
+
+    suspend fun update(station: Station) = spaceDeliveryDataBase.projectDao().update(station)
 }

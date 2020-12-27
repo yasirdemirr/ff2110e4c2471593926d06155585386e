@@ -19,4 +19,6 @@ class StationDataRepository @Inject constructor(
     suspend fun saveStationToLocal(station: Station) = stationLocale.insert(station)
 
     suspend fun clear() = stationLocale.clear()
+
+    suspend fun update(station: Station) = stationLocale.update(station)
 }

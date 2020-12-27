@@ -3,9 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="data"
+            type="com.myd.ff2110e4c2471593926d06155585386e.data.model.Station" />
+    </data>
+
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="24dp"
+        app:cardBackgroundColor="@color/item_background"
         app:cardCornerRadius="16dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,7 +27,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="16dp"
-                android:textColor="@color/black"
+                android:text="@{data.name}"
+                android:textColor="@color/white"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toStartOf="@+id/favoriteIcon"
                 app:layout_constraintStart_toStartOf="parent"
@@ -26,10 +36,12 @@
                 tools:text="YCADSA - 256" />
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/favoriteStationDistance"
+                android:id="@+id/capacity"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
+                android:text="200"
+                android:textColor="@color/gray"
                 app:layout_constraintLeft_toLeftOf="@id/favoriteStationName"
                 app:layout_constraintTop_toBottomOf="@id/favoriteStationName"
                 tools:text="23EUS" />
@@ -41,7 +53,7 @@
                 android:layout_marginRight="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/favoriteStationName"
-                tools:src="@drawable/ic_baseline_star_24" />
+                app:srcCompat="@drawable/ic_baseline_star_rate_24" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

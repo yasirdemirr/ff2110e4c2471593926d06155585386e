@@ -16,6 +16,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.myd.ff2110e4c2471593926d06155585386e.R
 import com.myd.ff2110e4c2471593926d06155585386e.constant.Constants.VEHICLE
+import com.myd.ff2110e4c2471593926d06155585386e.data.model.setValues
 import com.myd.ff2110e4c2471593926d06155585386e.databinding.VehicleBuilderFragmentBinding
 import com.myd.ff2110e4c2471593926d06155585386e.resources.NetworkState
 import dagger.android.support.AndroidSupportInjection
@@ -55,6 +56,7 @@ class VehicleBuilderFragment : Fragment(), SeekBar.OnSeekBarChangeListener, Text
         observableData()
         binding.btnContinue.setOnClickListener {
             if (viewModel.checkButtonEnableValue()) {
+                viewModel.vehicle.setValues()
                 val bundle = bundleOf(VEHICLE to viewModel.vehicle)
                 findNavController().navigate(
                     R.id.action_vehicleBuilderFragment_to_homeFragment,
