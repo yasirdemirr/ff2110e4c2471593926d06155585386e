@@ -21,4 +21,6 @@ class StationDataRepository @Inject constructor(
     suspend fun clear() = stationLocale.clear()
 
     suspend fun update(station: Station) = stationLocale.update(station)
+
+    suspend fun getItem(name: String) = stationLocale.getItem(name)
 }

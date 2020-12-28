@@ -40,8 +40,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:text="200"
                 android:textColor="@color/gray"
+                app:capacityText="@{data.stock}"
                 app:layout_constraintLeft_toLeftOf="@id/favoriteStationName"
                 app:layout_constraintTop_toBottomOf="@id/favoriteStationName"
                 tools:text="23EUS" />

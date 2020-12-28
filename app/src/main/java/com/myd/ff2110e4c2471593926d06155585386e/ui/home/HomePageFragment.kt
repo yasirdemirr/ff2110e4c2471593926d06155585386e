@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -42,24 +44,45 @@ class HomePageFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         stationAdapter = getAdapter()
         initRecyclerView()
-        viewModel = ViewModelProvider(this, viewModelProvider).get(HomePageViewModel::class.java)
+        viewModel =
+            ViewModelProvider(this, viewModelProvider).get(HomePageViewModel::class.java)
         binding.viewModel = viewModel
         viewModel.getListOfStation()
         binding.lifecycleOwner = this
         arguments?.getParcelable<VehiclePreferences>(VEHICLE)?.let { viewModel.parseIntent(it) }
 
-        viewModel.stationLiveData.observe(viewLifecycleOwner, { result ->
-            result?.let {
-                stationAdapter.setStations(it)
-                stationAdapter.notifyDataSetChanged()
-            }
-        })
+        viewModel.run {
+            stationLiveData.observe(viewLifecycleOwner, { result ->
+                result?.let {
+                    stationAdapter.setStations(it)
+                    stationAdapter.notifyDataSetChanged()
+                }
+            })
+            selectedStationFavoriteLiveData.observe(viewLifecycleOwner, {
+                it?.let {
+                    it.id?.let { id -> stationAdapter.notifyItemChanged(id.minus(1)) }
+                }
+            })
+            goSelectedStationLiveData.observe(viewLifecycleOwner, {
+                it?.let {
+                    it.id?.let { id ->
+                        binding.spaceList.smoothScrollToPosition(
+                            id.minus(
+                                1
+                            )
+                        )
+                    }
+                }
+            })
+            missionCompletedLiveData.observe(viewLifecycleOwner, {
+                createAlert(it)
+            })
+        }
 
-        viewModel.selectedStationLiveData.observe(viewLifecycleOwner, {
-            it?.let {
-                it.id?.let { id -> stationAdapter.notifyItemChanged(id.minus(1)) }
-            }
-        })
+    }
+
+    private fun goWorldPosition() {
+        binding.spaceList.smoothScrollToPosition(0)
     }
 
     private fun initRecyclerView() {
@@ -70,5 +93,41 @@ class HomePageFragment : Fragment() {
 
     private fun getAdapter() = StationsAdapter { station, clickType ->
         station?.let { station -> viewModel.travelBySelectedStation(station, clickType) }
+    }
+
+    private fun createAlert(message: String) {
+        val alertDialog = AlertDialog.Builder(requireContext())
+        alertDialog.setMessage(message)
+        alertDialog.setTitle("Bilgilendirme")
+        alertDialog.setCancelable(false)
+        alertDialog.setPositiveButton("Tamam") { dialog, _ ->
+            goWorldPosition()
+            dialog.cancel()
+        }
+        alertDialog.show()
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+        binding.search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                if (!query.isNullOrEmpty()) {
+                    query.let { viewModel.getFindItemByQuery(it.trim()) }
+                }
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?) = true
+        }
+        )
+    }
+
+    override fun onPause() {
+        super.onPause()
+        binding.search.setQuery("", false)
+        binding.search.clearFocus()
+        binding.search.setOnQueryTextListener(null)
+        viewModel.removeSearchData()
     }
 }

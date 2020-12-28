@@ -59,6 +59,7 @@ class VehicleBuilderViewModel @Inject constructor(
     fun saveStationsToRoom(stations: MutableList<Station>) {
         viewModelScope.launch {
             vehicle.currentLocationName = stations.first().name
+            stations.first().capacityFull = true
             stations.forEach {
                 it.distanceTimeCurrentLocation = vehicle.getDistance(it.coordinateX, it.coordinateY)
                 stationDataRepository.saveStationToLocal(it)

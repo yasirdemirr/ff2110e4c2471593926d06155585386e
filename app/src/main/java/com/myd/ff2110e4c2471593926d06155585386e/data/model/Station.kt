@@ -32,5 +32,7 @@ data class Station(
 
     var distanceTimeCurrentLocation: Int = 0,
 
-    var isCurrentLocation: Boolean = false
+    var isCurrentLocation: Boolean = false,
+
+    var capacityFull: Boolean = false
 )

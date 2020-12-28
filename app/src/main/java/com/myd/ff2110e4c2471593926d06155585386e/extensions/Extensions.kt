@@ -30,3 +30,8 @@ fun ImageView?.checkFavorite(isFavorite: Boolean) {
 fun TextView?.checkCapacityVisible(capacity: Int) {
     this?.visibility = if (capacity != 0) View.VISIBLE else View.GONE
 }
+
+@BindingAdapter("capacityText")
+fun TextView?.capacityText(capacity: Int) {
+    this?.text = if (capacity != 0) "$capacity" else null
+}

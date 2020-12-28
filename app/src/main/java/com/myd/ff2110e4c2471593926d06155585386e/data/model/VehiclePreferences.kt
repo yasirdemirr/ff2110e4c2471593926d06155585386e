@@ -19,3 +19,14 @@ fun VehiclePreferences.setValues() {
     this.speed = speed.times(20)
     this.capacity = capacity.times(10000)
 }
+
+fun VehiclePreferences.changeValueFromStation(station: Station) {
+    return this.let {
+        it.currentLocationName = station.name
+        it.currentLocationX = station.coordinateX
+        it.currentLocationY = station.coordinateY
+        it.capacity = it.capacity.minus(station.need)
+        it.speed = it.speed.minus(station.distanceTimeCurrentLocation)
+        it.durability = it.durability.minus(station.distanceTimeCurrentLocation.times(1000))
+    }
+}

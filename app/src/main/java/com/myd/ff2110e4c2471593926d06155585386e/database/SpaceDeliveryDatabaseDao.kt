@@ -16,4 +16,7 @@ interface SpaceDeliveryDatabaseDao {
 
     @Query("DELETE FROM station_information_table")
     suspend fun clear()
+
+    @Query("SELECT * from station_information_table where name LIKE :name")
+    suspend fun getItems(name: String): Station
 }
