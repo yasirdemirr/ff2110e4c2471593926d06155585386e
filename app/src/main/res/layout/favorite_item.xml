@@ -13,23 +13,23 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="24dp"
+        android:layout_margin="@dimen/margin_24"
         app:cardBackgroundColor="@color/item_background"
         app:cardCornerRadius="16dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="12dp">
+            android:padding="@dimen/padding_medium">
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/favoriteStationName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="16dp"
+                android:layout_marginRight="@dimen/margin_large"
                 android:text="@{data.name}"
                 android:textColor="@color/white"
-                android:textSize="16sp"
+                android:textSize="@dimen/text_size_small"
                 app:layout_constraintEnd_toStartOf="@+id/favoriteIcon"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -39,7 +39,7 @@
                 android:id="@+id/capacity"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="@dimen/margin_small"
                 android:textColor="@color/gray"
                 app:capacityText="@{data.stock}"
                 app:layout_constraintLeft_toLeftOf="@id/favoriteStationName"
@@ -48,8 +48,8 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/favoriteIcon"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="@dimen/image_width"
+                android:layout_height="@dimen/image_height"
                 android:layout_marginRight="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/favoriteStationName"

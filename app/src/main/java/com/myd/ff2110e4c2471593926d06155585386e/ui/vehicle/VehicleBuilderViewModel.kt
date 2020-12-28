@@ -67,6 +67,7 @@ class VehicleBuilderViewModel @Inject constructor(
         }
     }
 
+
     private fun controlNewValue(selectedPreferences: Int, progress: Int): Int {
         val newValue: Int?
         val lastSelectionMinusOldSelection = selectedPreferences.minus(progress).absoluteValue

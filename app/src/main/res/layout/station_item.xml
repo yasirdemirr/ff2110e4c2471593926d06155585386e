@@ -15,23 +15,23 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         app:cardBackgroundColor="@color/item_background"
-        app:cardCornerRadius="16dp"
-        app:cardElevation="8dp">
+        app:cardCornerRadius="@dimen/card_corner_dp"
+        app:cardElevation="@dimen/card_elevation">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="12dp">
+            android:padding="@dimen/padding_medium">
 
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/capacity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginLeft="@dimen/margin_large"
+                android:layout_marginTop="@dimen/margin_large"
                 android:textColor="@color/gray"
-                android:textSize="16sp"
+                android:textSize="@dimen/text_size_small"
                 app:checkCapacityVisible="@{data.capacity}"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -41,9 +41,9 @@
                 android:id="@+id/eusValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="@dimen/margin_xxsmall"
                 android:textColor="@color/gray"
-                android:textSize="16sp"
+                android:textSize="@dimen/text_size_small"
                 app:distanceText="@{data.distanceTimeCurrentLocation}"
                 app:layout_constraintStart_toStartOf="@+id/capacity"
                 app:layout_constraintTop_toBottomOf="@+id/capacity"
@@ -51,9 +51,9 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/favoriteIcon"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginRight="16dp"
+                android:layout_width="@dimen/image_width"
+                android:layout_height="@dimen/image_width"
+                android:layout_marginRight="@dimen/margin_large"
                 app:checkFavorite="@{data.isFavorite}"
                 app:layout_constraintBottom_toBottomOf="@id/eusValue"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -63,12 +63,12 @@
                 android:id="@+id/stationName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="36dp"
+                android:layout_marginTop="@dimen/margin_xxlarge"
                 android:gravity="center"
-                android:padding="8dp"
+                android:padding="@dimen/padding_small"
                 android:text="@{data.name}"
                 android:textColor="@color/white"
-                android:textSize="24sp"
+                android:textSize="@dimen/text_size_medium"
                 android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -79,7 +79,7 @@
                 android:id="@+id/btnTravel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="@dimen/margin_xxlarge"
                 android:backgroundTint="@color/teal_200"
                 android:text="Travel"
                 app:layout_constraintEnd_toEndOf="@+id/stationName"

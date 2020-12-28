@@ -14,6 +14,9 @@ import com.myd.ff2110e4c2471593926d06155585386e.extensions.getDistance
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * created yasirDemir
+ */
 class HomePageViewModel @Inject constructor(
     private val repository: StationDataRepository
 ) : ViewModel() {
@@ -29,9 +32,6 @@ class HomePageViewModel @Inject constructor(
 
     private val missionCompleted = MutableLiveData<String>()
     val missionCompletedLiveData: LiveData<String> = missionCompleted
-
-    private var searchIsActive = false
-
 
     var vehicle = VehiclePreferences()
     var oldVehiclePref = VehiclePreferences()
@@ -50,6 +50,11 @@ class HomePageViewModel @Inject constructor(
         }
     }
 
+    /**
+     * vehicle ekranında oluşturulan
+     * vehicle parse eder
+     * @param vehiclePreferences
+     */
     fun parseIntent(vehiclePreferences: VehiclePreferences) {
         if (isFirstTime) {
             oldVehiclePref = vehiclePreferences.copy()
@@ -58,6 +63,11 @@ class HomePageViewModel @Inject constructor(
         setMenuItemValue(vehiclePreferences)
     }
 
+    /**
+     * vehicle özelliklerine göre
+     *ekrandaki gerekli yerleri
+     * set eder
+     */
     private fun setMenuItemValue(vehicle: VehiclePreferences) {
         this.vehicle = vehicle
         vehicle.let {
@@ -69,6 +79,14 @@ class HomePageViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Tıklanılan buttona ve ya image göre
+     * Buton ise o istasyona gider ve
+     * aktarımları yapar
+     * image ise favori durumnunu duzenler
+     * @param station
+     * @param clickType
+     */
     fun travelBySelectedStation(station: Station, clickType: ClickType) {
         when (clickType) {
             ClickType.BUTTON -> {
@@ -84,6 +102,12 @@ class HomePageViewModel @Inject constructor(
         }
     }
 
+    /**
+     * aktarım yapılmak istenilern
+     * istasyon için yeterli süre dayanıklılık
+     * ve ya malzeme yok ise
+     * dünya'ya döner
+     */
     private fun goBackToWorldForSupply() {
         vehicle = oldVehiclePref
         updateDistanceFromWorld()
@@ -91,6 +115,11 @@ class HomePageViewModel @Inject constructor(
         setMenuItemValue(vehicle)
     }
 
+    /**
+     * Dünyaya döndüğünde
+     * diğer istasyonların dünyaya
+     * göre uzaklıkları hesaplanır
+     */
     private fun updateDistanceFromWorld() {
         viewModelScope.launch {
             repository.getStationsFromLocal().forEach {
@@ -101,10 +130,16 @@ class HomePageViewModel @Inject constructor(
         }
     }
 
+    /**
+     * aracın malzeme, dayanıklılık ,ve
+     * zaman kontolleri
+     * @param station
+     */
     private fun controlVehicleState(station: Station) =
         ugsObservable.get()?.toInt()?.minus(station.need)!! >= 0 &&
                 eusObservable.get()?.toInt()?.minus(station.distanceTimeCurrentLocation)!! >= 0 &&
                 dsObservable.get()?.toInt()?.minus(durabilityTime.times(1000))!! >= 0
+
 
 
     private fun updateStationStore(station: Station) {
@@ -114,6 +149,10 @@ class HomePageViewModel @Inject constructor(
         updateList(station)
     }
 
+    /**
+     * Favori ikonuna tıklanan station
+     * guncellenir
+     */
     private fun updateClickedItemFavorite(station: Station) {
         viewModelScope.launch {
             station.isFavorite = !station.isFavorite
@@ -122,6 +161,10 @@ class HomePageViewModel @Inject constructor(
         selectedStationFavorite.value = station
     }
 
+    /**
+     * herhangi bir olaydan sonra
+     * listenin guncellenmesi
+     */
     private fun updateList(station: Station) {
         viewModelScope.launch {
             repository.getStationsFromLocal().let {
@@ -149,12 +192,22 @@ class HomePageViewModel @Inject constructor(
         }
     }
 
+    /**
+     * bütün istasyonlara gerekli
+     * malzemelr dagıtıldıgında
+     * gorev bitr ve dunyaya donulur
+     */
     private fun completedMission() {
         vehicle.currentLocationName = "Dünya"
         missionCompleted.value = "Dağıtım Görevi Tamamlandı. Dünyaya Dönülüyor..."
         setMenuItemValue(vehicle)
     }
 
+    /**
+     * kullanıcının girdiği query
+     * göre searc yapılır
+     * @param query
+     */
     fun getFindItemByQuery(query: String) {
         viewModelScope.launch {
             goSelectedStationMutableLiveData.value =
@@ -163,6 +216,11 @@ class HomePageViewModel @Inject constructor(
         }
     }
 
+    /**
+     * favori sayfasına geçilip
+     * geri gelindiğinde searchin tekrar  calısmaması
+     * için null set edildi.
+     */
     fun removeSearchData() {
         goSelectedStationMutableLiveData.value = null
     }

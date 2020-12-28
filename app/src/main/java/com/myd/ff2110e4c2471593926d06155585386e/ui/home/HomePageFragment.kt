@@ -127,7 +127,6 @@ class HomePageFragment : Fragment() {
         super.onPause()
         binding.search.setQuery("", false)
         binding.search.clearFocus()
-        binding.search.setOnQueryTextListener(null)
         viewModel.removeSearchData()
     }
 }
