@@ -1,0 +1,18 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/home"
+        android:icon="@drawable/spacecraft_svgrepo_com"
+        android:contentDescription="Home"
+        android:title="Istasyon"
+        app:showAsAction="always" />
+
+
+    <item
+        android:id="@+id/favorite"
+        android:icon="@drawable/favorite_svgrepo_com"
+        android:contentDescription="Favorite"
+        android:title="Favoriler"
+        app:showAsAction="always" />
+
+</menu>

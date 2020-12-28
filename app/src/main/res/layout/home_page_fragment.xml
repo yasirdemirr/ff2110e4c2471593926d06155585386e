@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.myd.ff2110e4c2471593926d06155585386e.ui.home.HomePageViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.home.HomePageFragment">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/dsNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.dsObservable}"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/dsText"
+            app:layout_constraintTop_toTopOf="@+id/dsText"
+            tools:text="5000" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/ugsText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:text="Ugs:"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toStartOf="@+id/ugsNumber"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/ugsNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.ugsObservable}"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toStartOf="@+id/eusText"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/ugsText"
+            app:layout_constraintTop_toTopOf="@+id/ugsText"
+            tools:text="5000" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/eusText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="EUS:"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toStartOf="@+id/eusNumber"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/ugsNumber"
+            app:layout_constraintTop_toTopOf="@+id/ugsNumber"
+            app:layout_goneMarginLeft="16dp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/eusNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.eusObservable}"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toStartOf="@+id/dsText"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/eusText"
+            app:layout_constraintTop_toTopOf="@+id/eusText"
+            tools:text="5000" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/dsText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Ds:"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toStartOf="@+id/dsNumber"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/eusNumber"
+            app:layout_constraintTop_toTopOf="@+id/eusNumber" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/vehicleName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:gravity="center"
+            android:text="@{viewModel.vehicleNameObservable}"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dsText"
+            tools:text="WartonX" />
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/search"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_xlarge"
+            app:iconifiedByDefault="false"
+            android:layout_marginTop="@dimen/margin_40"
+            android:layout_marginRight="@dimen/margin_xlarge"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/vehicleName"
+            app:queryHint="@string/search" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/spaceList"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="@dimen/margin_xlarge"
+            android:layout_marginTop="@dimen/margin_24"
+            android:layout_marginRight="@dimen/margin_xlarge"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toTopOf="@+id/guideline2"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/search" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.75" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/currentStation"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_24"
+            android:gravity="center"
+            android:text="@{viewModel.currentLocationNameObservable}"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size_medium"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/guideline2"
+            tools:text="Dunya" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
